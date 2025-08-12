@@ -15,7 +15,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Change slide every 5 seconds
-    setInterval(nextSlide, 2000);
+    if (slides.length > 0) {
+        setInterval(nextSlide, 2000);
+    }
     
     // Project form submission
     const projectForm = document.getElementById('projectForm');
@@ -42,12 +44,10 @@ document.addEventListener('DOMContentLoaded', function() {
             // Reset form
             projectForm.reset();
             
-            // Show success message (you could add a proper notification here)
+            // Show success message
             alert('Thank you for your submission! We will contact you shortly.');
         });
     }
-
-    
     
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -66,22 +66,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Mobile menu toggle (could be added if needed)
-    // const menuToggle = document.createElement('button');
-    // menuToggle.classList.add('menu-toggle');
-    // menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-    // document.querySelector('header').prepend(menuToggle);
-    
-    // menuToggle.addEventListener('click', function() {
-    //     document.querySelector('nav').classList.toggle('active');
-    // });
-
-});
-
-// Update the existing script.js with these additions
-document.addEventListener('DOMContentLoaded', function() {
-    // Existing code...
-    
     // Hamburger menu functionality
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
@@ -89,19 +73,54 @@ document.addEventListener('DOMContentLoaded', function() {
     if (hamburger && navMenu) {
         hamburger.addEventListener('click', function() {
             navMenu.classList.toggle('active');
-            hamburger.innerHTML = navMenu.classList.contains('active') ? 
-                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            // Toggle between hamburger and close icon
+            const icon = hamburger.querySelector('i');
+            if (navMenu.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
         });
     }
     
-    // Close menu when clicking on a link
+    // Close menu when clicking on a link (for mobile)
     const navLinks = document.querySelectorAll('.nav-menu a');
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
-            navMenu.classList.remove('active');
-            hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            if (window.innerWidth <= 768) { // Only for mobile
+                navMenu.classList.remove('active');
+                const icon = hamburger.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
         });
     });
-    
-    // Existing code...
+
+    // Close menu when clicking outside (for mobile)
+    document.addEventListener('click', function(e) {
+        if (window.innerWidth <= 768 && navMenu.classList.contains('active')) {
+            if (!e.target.closest('.nav-menu') && !e.target.closest('.hamburger')) {
+                navMenu.classList.remove('active');
+                const icon = hamburger.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+    });
+
+    // Project gallery item click effect
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    galleryItems.forEach(item => {
+        item.addEventListener('click', function() {
+            // You can add a lightbox functionality here if needed
+            // For now, just toggle the info display on mobile
+            if (window.innerWidth <= 768) {
+                const info = this.querySelector('.project-info');
+                info.style.transform = info.style.transform === 'translateY(0%)' ? 
+                    'translateY(100%)' : 'translateY(0%)';
+            }
+        });
+    });
 });
