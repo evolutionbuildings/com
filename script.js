@@ -47,33 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Update the existing script.js with these additions
-document.addEventListener('DOMContentLoaded', function() {
-    // Existing code...
     
-    // Hamburger menu functionality
-    const hamburger = document.querySelector('.hamburger');
-    const navMenu = document.querySelector('.nav-menu');
-    
-    if (hamburger && navMenu) {
-        hamburger.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
-            hamburger.innerHTML = navMenu.classList.contains('active') ? 
-                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-        });
-    }
-    
-    // Close menu when clicking on a link
-    const navLinks = document.querySelectorAll('.nav-menu a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            navMenu.classList.remove('active');
-            hamburger.innerHTML = '<i class="fas fa-bars"></i>';
-        });
-    });
-    
-    // Existing code...
-});
     
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -101,4 +75,33 @@ document.addEventListener('DOMContentLoaded', function() {
     // menuToggle.addEventListener('click', function() {
     //     document.querySelector('nav').classList.toggle('active');
     // });
+
+});
+
+// Update the existing script.js with these additions
+document.addEventListener('DOMContentLoaded', function() {
+    // Existing code...
+    
+    // Hamburger menu functionality
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+            hamburger.innerHTML = navMenu.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+    }
+    
+    // Close menu when clicking on a link
+    const navLinks = document.querySelectorAll('.nav-menu a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            navMenu.classList.remove('active');
+            hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+        });
+    });
+    
+    // Existing code...
 });
